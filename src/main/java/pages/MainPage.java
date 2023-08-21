@@ -1,21 +1,48 @@
 package pages;
 
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.SelenideElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.How;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.time.Duration;
+import java.util.List;
 
 
 public class MainPage {
 
-    // все элементы с вопросами
-    @FindBy(how = How.CLASS_NAME, using = "accordion__button")
-    private ElementsCollection faqItems;
+    WebDriver driver;
 
-    // все элементы с ответами
-    @FindBy(how = How.XPATH, using = ".//div[@data-accordion-component='AccordionItemPanel']/p")
-    private ElementsCollection faqAnswers;
+    public MainPage(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    // локатор вопросов
+    private By faqQuestions = By.className("accordion__button");
+
+    // локатор ответов
+    private By faqAnswers = By.xpath(".//div[@data-accordion-component='AccordionItemPanel']/p");
+
+
+    public List<WebElement> getQuestions() {
+        var allFaqQuestions  = driver.findElements(faqQuestions);
+        return allFaqQuestions;
+    }
+
+    public List<WebElement> getAnswers() {
+        var allFaqQuestions  = driver.findElements(faqAnswers);
+        return allFaqQuestions;
+    }
+
+    //локатор куки
+    private By cookieButton = By.id("rcc-confirm-button");
+
+    //метод закрытия куки
+    public void closeCookiePopupIfPresent() {
+        if (driver.findElement(cookieButton).isDisplayed()) {
+            driver.findElement(cookieButton).click();
+        }
+    }
 
     String[] Answers = {"Сутки — 400 рублей. Оплата курьеру — наличными или картой.",
             "Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим.",
@@ -26,26 +53,26 @@ public class MainPage {
             "Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои.",
             "Да, обязательно. Всем самокатов! И Москве, и Московской области."};
 
-    //
-    public boolean isEveryFaqAnswerCorrect() {
 
-        for (int i = 0; i < faqItems.size(); i++) {
-            faqItems.get(i).scrollTo().click();
-            String answer = faqAnswers.get(i).shouldBe(Condition.visible).getText();
-            if (!(answer.equals(Answers[i]))) {
+    public void scrollTo(WebElement elementToScroll) {
+        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", elementToScroll);
+    }
+
+    public boolean isEveryFaqAnswerCorrect() {
+          for (int i = 0; i < getQuestions().size(); i++) {
+            scrollTo(getQuestions().get(i));
+            getQuestions().get(i).isDisplayed();
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
+            getQuestions().get(i).click();
+            getAnswers().get(i).isDisplayed();
+            String answerItemFromWebElements = getAnswers().get(i).getText();
+            String answerFromArray = Answers[i];
+            if (!(answerItemFromWebElements.equals(answerFromArray))) {
                 return false;
             }
-        }
-        return true;
+
+        } return  true;
+
     }
 
-    // локатор куки
-    @FindBy(how = How.ID, using = "rcc-confirm-button")
-    private SelenideElement cookieButton;
-
-    public void closeCookiePopupIfPresent(){
-        if (cookieButton.exists()) {
-            cookieButton.click();
-        }
-    }
 }

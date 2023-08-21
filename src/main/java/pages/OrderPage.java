@@ -71,10 +71,6 @@ public class OrderPage {
     }
 
 
-
-
-
-
     // метод клика по кнопке "Заказать" в хедере
     public void clickOrderButtonInHeader() {
         driver.findElement(orderButtonInHeader).click();
@@ -171,7 +167,7 @@ public class OrderPage {
 
     // метод подтверждения Заказа
     public void clickConfirmOrderButton () {
-        driver.findElement(By.xpath(".//div[@class='Order_Buttons__1xGrp']//button[text()='Да']"));
+        driver.findElement(By.xpath(".//div[@class='Order_Buttons__1xGrp']//button[text()='Да']")).click();
     }
 
     // метод заполнения второй части формы заказа с чёрным цветом на 3 дня
@@ -194,8 +190,6 @@ public class OrderPage {
         return  driver.findElement(orderSuccess).getText();
 
     }
-
-
 
 
 }
