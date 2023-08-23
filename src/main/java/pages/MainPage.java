@@ -18,24 +18,24 @@ public class MainPage {
     }
 
     // локатор вопросов
-    private By faqQuestions = By.className("accordion__button");
+    private final By faqQuestions = By.className("accordion__button");
 
     // локатор ответов
-    private By faqAnswers = By.xpath(".//div[@data-accordion-component='AccordionItemPanel']/p");
+    private final By faqAnswers = By.xpath(".//div[@data-accordion-component='AccordionItemPanel']/p");
 
 
     public List<WebElement> getQuestions() {
-        var allFaqQuestions  = driver.findElements(faqQuestions);
+        var allFaqQuestions = driver.findElements(faqQuestions);
         return allFaqQuestions;
     }
 
     public List<WebElement> getAnswers() {
-        var allFaqQuestions  = driver.findElements(faqAnswers);
+        var allFaqQuestions = driver.findElements(faqAnswers);
         return allFaqQuestions;
     }
 
     //локатор куки
-    private By cookieButton = By.id("rcc-confirm-button");
+    private final By cookieButton = By.id("rcc-confirm-button");
 
     //метод закрытия куки
     public void closeCookiePopupIfPresent() {
@@ -55,11 +55,11 @@ public class MainPage {
 
 
     public void scrollTo(WebElement elementToScroll) {
-        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", elementToScroll);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", elementToScroll);
     }
 
     public boolean isEveryFaqAnswerCorrect() {
-          for (int i = 0; i < getQuestions().size(); i++) {
+        for (int i = 0; i < getQuestions().size(); i++) {
             scrollTo(getQuestions().get(i));
             getQuestions().get(i).isDisplayed();
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
@@ -71,7 +71,8 @@ public class MainPage {
                 return false;
             }
 
-        } return  true;
+        }
+        return true;
 
     }
 

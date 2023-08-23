@@ -24,10 +24,12 @@ public class QuestionsTests {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
         Assert.assertTrue(mainPage.isEveryFaqAnswerCorrect());
     }
-        @After
-        public void killDriver() {
+
+    @After
+    public void killDriver() {
         driver.quit();
     }
+
 }
 
 

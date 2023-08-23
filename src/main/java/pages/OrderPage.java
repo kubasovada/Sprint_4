@@ -6,62 +6,64 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class OrderPage {
-     WebDriver driver;
+    WebDriver driver;
 
     //Конструктор
     public OrderPage(WebDriver driver) {
         this.driver = driver;
     }
+
     //метод open
     public void open() {
         driver.get("https://qa-scooter.praktikum-services.ru/");
     }
+
     //локатор кнопки "Заказать" в хедере
-    private By orderButtonInHeader = By.xpath(".//div[@class='Header_Nav__AGCXC']//button[@class='Button_Button__ra12g']");
+    private final By orderButtonInHeader = By.xpath(".//div[@class='Header_Nav__AGCXC']//button[@class='Button_Button__ra12g']");
     //локатор кнопки "Заказать" в центре
-    private By orderButtonInCenter = By.className("Home_FinishButton__1_cWm");
+    private final By orderButtonInCenter = By.className("Home_FinishButton__1_cWm");
     //локатор поля ввода "Имя"
-    private By orderName = By.xpath(".//input[@placeholder='* Имя']");
+    private final By orderName = By.xpath(".//input[@placeholder='* Имя']");
     //локатор поля ввода "Фамилия"
-    private By orderSurname = By.xpath(".//input[@placeholder='* Фамилия']");
+    private final By orderSurname = By.xpath(".//input[@placeholder='* Фамилия']");
     //локатор поля ввода "Адрес"
-    private By orderAddress = By.xpath(".//input[@placeholder='* Адрес: куда привезти заказ']");
+    private final By orderAddress = By.xpath(".//input[@placeholder='* Адрес: куда привезти заказ']");
     //локатор поля "Станция метро"
-    private By orderMetroField = By.cssSelector(".select-search__value>input.select-search__input");
+    private final By orderMetroField = By.cssSelector(".select-search__value>input.select-search__input");
     //локатор поля выбора станции метро
-    private By chooseMetroStation = By.xpath(".//div[@class='select-search__select']//button[@value='4']");
+    private final By chooseMetroStation = By.xpath(".//div[@class='select-search__select']//button[@value='4']");
     //локатор поля ввода телефона
-    private By orderPhoneField = By.xpath(".//input[@placeholder='* Телефон: на него позвонит курьер']");
+    private final By orderPhoneField = By.xpath(".//input[@placeholder='* Телефон: на него позвонит курьер']");
     //локатор кнопки Далее
-    private By nextButton = By.cssSelector(".Order_NextButton__1_rCA>button");
+    private final By nextButton = By.cssSelector(".Order_NextButton__1_rCA>button");
     //локатор поля "Когда привезти самокат"
-    private By date = By.cssSelector(".Order_Form__17u6u .react-datepicker__input-container>input");
+    private final By date = By.cssSelector(".Order_Form__17u6u .react-datepicker__input-container>input");
     //локатор поля "Срок аренды"
-    private By chooseRentPeriod = By.className("Dropdown-arrow");
+    private final By chooseRentPeriod = By.className("Dropdown-arrow");
     //локатор для поля выбора срока аренды 3 дня
-    private By rentPeriodFor3Days = By.cssSelector("div[class='Dropdown-menu'] div:nth-child(3)");
+    private final By rentPeriodFor3Days = By.cssSelector("div[class='Dropdown-menu'] div:nth-child(3)");
     //локатор для поля выбора срока аренды 5 дней
-    private By rentPeriodFor5Days = By.xpath(".//div[@class='Dropdown-menu']/div[text()='пятеро суток']");
+    private final By rentPeriodFor5Days = By.xpath(".//div[@class='Dropdown-menu']/div[text()='пятеро суток']");
     //локатор чекбокса Цвет самоката "черный жемчуг"
-    private By colorBlack = By.cssSelector(".Order_Checkboxes__3lWSI #black");
+    private final By colorBlack = By.cssSelector(".Order_Checkboxes__3lWSI #black");
     //локатор чекбокса Цвет самоката "серая безысходность"
-    private By colorGray = By.id("grey");
+    private final By colorGray = By.id("grey");
     //локатор поля "Комментарий для курьера"
-    private By commentForCourier = By.cssSelector("div.Input_InputContainer__3NykH input.Input_Responsible__1jDKN");
+    private final By commentForCourier = By.cssSelector("div.Input_InputContainer__3NykH input.Input_Responsible__1jDKN");
     //локатор кнопки "Заказать"
-    private By orderButtonInform = By.xpath(".//div[@class='Order_Buttons__1xGrp']//button[text()='Заказать']");
+    private final By orderButtonInform = By.xpath(".//div[@class='Order_Buttons__1xGrp']//button[text()='Заказать']");
     //локатор кнопки "Да" формы "Хотите оформить заказ?"
-    private By confirmMakeOrderButton = By.xpath(".//div[@class='Order_Buttons__1xGrp']//button[text()='Да']");
+    private final By confirmMakeOrderButton = By.xpath(".//div[@class='Order_Buttons__1xGrp']//button[text()='Да']");
 
     public By getOrderSuccess() {
         return orderSuccess;
     }
 
     //локатор окна "Заказ оформлен"
-    private By orderSuccess = By.xpath(".//div[@class='Order_ModalHeader__3FDaJ' and text()='Заказ оформлен']");
+    private final By orderSuccess = By.xpath(".//div[@class='Order_ModalHeader__3FDaJ' and text()='Заказ оформлен']");
 
     //локатор куки
-    private By cookieButton = By.id("rcc-confirm-button");
+    private final By cookieButton = By.id("rcc-confirm-button");
 
     //метод закрытия куки
     public void closeCookiePopupIfPresent() {
@@ -75,6 +77,7 @@ public class OrderPage {
     public void clickOrderButtonInHeader() {
         driver.findElement(orderButtonInHeader).click();
     }
+
     // метод клика по кнопке "Заказать" в центре
     public void clickOrderButtonInCenter() {
         scrollToOrderButtonInCenter();
@@ -85,7 +88,7 @@ public class OrderPage {
     // скролл до кнопки "Заказать" в центре
     private void scrollToOrderButtonInCenter() {
         WebElement elementToScroll = driver.findElement(orderButtonInCenter);
-        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", elementToScroll);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", elementToScroll);
     }
 
     // метод заполнения поля "Имя"
@@ -93,27 +96,31 @@ public class OrderPage {
         driver.findElement(orderName).sendKeys(name);
 
     }
+
     // метод заполнения поля "Фамилия"
     public void fillOrderInputSurname(String surname) {
         driver.findElement(orderSurname).sendKeys(surname);
     }
+
     // метод заполнения поля "Адрес"
     public void fillOrderInputAddress(String address) {
         driver.findElement(orderAddress).sendKeys(address);
 
     }
+
     // метод заполнения поля станция метро
     public void setValueInputMetroStation() {
         driver.findElement(orderMetroField).click();
         driver.findElement(chooseMetroStation).click();
     }
+
     // метод заполнения поля ввода телефона
     public void fillOrderPhoneNumber(String phoneNumber) {
         driver.findElement(orderPhoneField).sendKeys(phoneNumber);
     }
 
     // метод заполнения первой части формы заказа
-    public void fillFirstPartOfFormOrder(String name, String surname, String address, String phoneNumber)  {
+    public void fillFirstPartOfFormOrder(String name, String surname, String address, String phoneNumber) {
         fillOrderInputName(name);
         fillOrderInputSurname(surname);
         fillOrderInputAddress(address);
@@ -128,7 +135,7 @@ public class OrderPage {
     }
 
     // метод выбора даты заказа
-    public  void setRentDay(String printDate) {
+    public void setRentDay(String printDate) {
         driver.findElement(date).click();
         driver.findElement(date).sendKeys(printDate);
     }
@@ -161,12 +168,12 @@ public class OrderPage {
     }
 
     // метод нажатия на кнопку Заказать
-    public void clickOrderButton () {
+    public void clickOrderButton() {
         driver.findElement(By.xpath(".//div[@class='Order_Buttons__1xGrp']//button[text()='Заказать']")).click();
     }
 
     // метод подтверждения Заказа
-    public void clickConfirmOrderButton () {
+    public void clickConfirmOrderButton() {
         driver.findElement(By.xpath(".//div[@class='Order_Buttons__1xGrp']//button[text()='Да']")).click();
     }
 
@@ -177,6 +184,7 @@ public class OrderPage {
         setScooterColorBlack();
         enterCommentForCourier(comment);
     }
+
     // метод заполнения второй части формы заказа с серым цветом на 5 дней
     public void fillSecondFormOrderWithGreyColor(String printDate, String comment) {
         setRentDay(printDate);
@@ -187,9 +195,8 @@ public class OrderPage {
 
     // метод получения текста "Заказ оформлен"
     public String getOrderText() {
-        return  driver.findElement(orderSuccess).getText();
+        return driver.findElement(orderSuccess).getText();
 
     }
-
 
 }
