@@ -4,11 +4,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
-//import src.main.test.java.DataTest;
-
 
 
 public class MainPage {
@@ -46,25 +46,20 @@ public class MainPage {
         }
     }
 
-    public void scrollTo(WebElement elementToScroll) {
+    public void scrollTo(int index) {
+        WebElement elementToScroll = getQuestions().get(index);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", elementToScroll);
     }
 
-    public boolean isEveryFaqAnswerCorrect() {
-        //DataTest dataTest = new DataTest;
-        for (int i = 0; i < getQuestions().size(); i++) {
-            scrollTo(getQuestions().get(i));
-            getQuestions().get(i).isDisplayed();
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
-            getQuestions().get(i).click();
-            getAnswers().get(i).isDisplayed();
-            if (!(getAnswers().get(i).isDisplayed())) {
-                return false;
-            }
+    public void clickQuestion(int index) {
+        getQuestions().get(index).isDisplayed();
+        getQuestions().get(index).click();
+    }
 
-        }
-        return true;
-
+    public String getAnswerText(int index) {
+        new WebDriverWait(driver, Duration.ofSeconds(3))
+                .until(ExpectedConditions.visibilityOf(getAnswers().get(index)));
+        return getAnswers().get(index).getText();
     }
 
 }
